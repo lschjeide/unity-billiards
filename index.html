@@ -126,6 +126,11 @@
 
       document.body.appendChild(script);
 
+      window.addEventListener("message", function (event) {
+          if (event.data === "exit") {
+            window.ReactNativeWebView.postMessage("exit");
+          }
+        });
     </script>
   </body>
 </html>
