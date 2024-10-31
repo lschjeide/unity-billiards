@@ -39,12 +39,36 @@
         line-height: 40px;
         cursor: pointer;
         border-radius: 50%;
+        display: none; /* Hidden by default, shown only on desktop */
+      }
+      #unity-loading-bar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      #unity-progress-bar-full {
+        height: 100%;
+        width: 0%;
+        background-color: #4CAF50;
       }
     </style>
   </head>
   <body>
     <div id="unity-container">
       <canvas id="unity-canvas" tabindex="-1"></canvas>
+
+      <!-- Loading Bar -->
+      <div id="unity-loading-bar">
+        <div id="unity-progress-bar-full"></div>
+      </div>
+
+      <!-- Fullscreen Button (for desktop only) -->
       <div id="fullscreen-button">⛶</div>
     </div>
 
@@ -52,6 +76,8 @@
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var fullscreenButton = document.querySelector("#fullscreen-button");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/BBBuild.loader.js";
@@ -65,6 +91,11 @@
         productVersion: "0.1",
       };
 
+      // Hide the fullscreen button on mobile devices
+      if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        fullscreenButton.style.display = "block"; // Show on desktop only
+      }
+
       function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -77,8 +108,9 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          // Optional: Progress bar logic (can add back if needed)
+          progressBarFull.style.width = 100 * progress + "%"; // Update progress bar
         }).then((unityInstance) => {
+          loadingBar.style.display = "none"; // Hide loading bar on load
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
