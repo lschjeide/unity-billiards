@@ -47,11 +47,19 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 70%;
+        text-align: center;
+      }
+      #unity-logo {
+        width: 100px;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      #unity-progress-bar-empty {
+        width: 100%;
         height: 10px;
         background-color: rgba(255, 255, 255, 0.2);
         border-radius: 5px;
         overflow: hidden;
-        display: block; /* Ensures the loading bar appears */
       }
       #unity-progress-bar-full {
         height: 100%;
@@ -64,9 +72,12 @@
     <div id="unity-container">
       <canvas id="unity-canvas" tabindex="-1"></canvas>
 
-      <!-- Loading Bar -->
+      <!-- Loading Bar with Logo -->
       <div id="unity-loading-bar">
-        <div id="unity-progress-bar-full"></div>
+        <img id="unity-logo" src="TemplateData/unity-logo.png" alt="Unity Logo">
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
       </div>
 
       <!-- Fullscreen Button (for desktop only) -->
@@ -109,9 +120,9 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%"; // Update progress bar
+          progressBarFull.style.width = (100 * progress) + "%"; // Update progress bar width
         }).then((unityInstance) => {
-          loadingBar.style.display = "none"; // Hide loading bar on load
+          loadingBar.style.display = "none"; // Hide loading bar once loaded
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
