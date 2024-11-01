@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
-      /* Ensure fullscreen canvas and responsive design */
+      /* Fullscreen canvas styling */
       body, html {
         margin: 0;
         padding: 0;
@@ -26,21 +26,15 @@
         width: 100%;
         height: 100%;
       }
-          #fullscreen-button {
-                  position: absolute;
-                  bottom: 20px;
-                  right: 20px;
-                  width: 40px;
-                  height: 40px;
-                  background-color: rgba(0, 0, 0, 0.5);
-                  color: #fff;
-                  font-size: 20px;
-                  text-align: center;
-                  line-height: 40px;
-                  cursor: pointer;
-                  border-radius: 50%;
-                  display: none; /* Hidden by default, shown only on desktop */
-                }
+      #unity-fullscreen-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        cursor: pointer;
+        width: 38px;
+        height: 38px;
+        display: none; /* Hidden by default, only shown on desktop */
+      }
     </style>
   </head>
   <body>
@@ -56,7 +50,7 @@
       </div>
 
       <!-- Fullscreen Button -->
-      <div id="fullscreen-button"></div>
+      <div id="unity-fullscreen-button"></div>
     </div>
 
     <script>
@@ -67,7 +61,6 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
-      loadingBar.style.display = "block";
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -111,6 +104,9 @@
       }
       window.addEventListener('resize', resizeCanvas);
       resizeCanvas(); // Initial call to set the canvas size
+
+      // Ensure loading bar is displayed
+      loadingBar.style.display = "block";
 
       var script = document.createElement("script");
       script.src = loaderUrl;
