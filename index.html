@@ -41,6 +41,9 @@
             border-radius: 50%;
             display: none; /* Hidden by default, shown only on desktop */
           }
+        #unity-webgl-logo {
+            background: url('https://images.squarespace-cdn.com/content/v1/66300764a288660f72927b75/36d02fed-127b-4f87-8472-2ca78df366f9/transparent-logo.png?format=1500w') no-repeat center !important;
+        }
     </style>
   </head>
   <body>
@@ -64,7 +67,7 @@
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var fullscreenButton = document.querySelector("#fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
       function unityShowBanner(msg, type) {
