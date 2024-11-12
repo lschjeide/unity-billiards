@@ -160,14 +160,6 @@
         });
       };
       document.body.appendChild(script);
-
-      function StartUnity() {
-        var unityInstance = UnityLoader.instantiate("unityContainer", "Build/YourGame.json", {});
-
-        document.getElementById("startButton").addEventListener("click", function() {
-          unityInstance.SendMessage('Intro', 'PlayIntroMusic');
-        });
-      }
     </script>
   </body>
 </html>
