@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | 3D Billiards</title>
+    <title>RACK ATTACK!</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
@@ -114,11 +114,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/unity-billiards.loader.js";
+      var loaderUrl = buildUrl + "/BBBuild.loader.js";
       var config = {
-        dataUrl: buildUrl + "/unity-billiards.data",
-        frameworkUrl: buildUrl + "/unity-billiards.framework.js",
-        codeUrl: buildUrl + "/unity-billiards.wasm",
+        dataUrl: buildUrl + "/BBBuild.data",
+        frameworkUrl: buildUrl + "/BBBuild.framework.js",
+        codeUrl: buildUrl + "/BBBuild.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "3D Billiards",
@@ -160,6 +160,24 @@
         });
       };
       document.body.appendChild(script);
+
+      function sendMessageToReactNative(message) {
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(message);
+    } else {
+      console.error("ReactNativeWebView is not available");
+    }
+  }
+
+  // Expose a global function for Unity to call
+  window.UnityMessageHandler = function (message) {
+    sendMessageToReactNative(message);
+  };
+
+  // Example usage
+  function triggerBackNavigation() {
+    window.UnityMessageHandler("navigate_back");
+  }
     </script>
   </body>
 </html>
