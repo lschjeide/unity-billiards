@@ -163,11 +163,15 @@
       document.body.appendChild(script);
 
       function sendMessageToReactNative(message) {
-    if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(message);
-    } else {
-      console.error("ReactNativeWebView is not available");
-    }
+        if (window.ReactNativeWebView) {
+    // If in a React Native WebView, use its postMessage
+    window.ReactNativeWebView.postMessage(message);
+  } else if (window.parent && window !== window.parent) {
+    // If in an iframe, send a message to the parent window
+    window.parent.postMessage(message, '*');
+  } else {
+    console.error("Neither ReactNativeWebView nor iframe parent is available");
+  }
   }
 
   // Expose a global function for Unity to call
