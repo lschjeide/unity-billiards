@@ -152,6 +152,7 @@
         }).then((unityInstance) => {
           // Hide loading bar once loading completes
           loadingBar.style.display = "none";
+          window.unityInstance = instance;
           // Set fullscreen button to toggle fullscreen mode
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
