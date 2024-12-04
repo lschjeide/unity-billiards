@@ -179,6 +179,17 @@
     sendMessageToReactNative(message);
   };
 
+  window.ParentMessageHandler = function (message) {
+    console.log("Message received from React Native:", message);
+    if (window.unityInstance) {
+      // Forward the message to Unity's SetNonce method
+      unityInstance.SendMessage("Intro", "SetNonce", message);
+      console.log("Message sent to Unity:", message);
+    } else {
+      console.error("Unity instance is not available");
+    }
+  };
+
   // Example usage
   function triggerBackNavigation() {
     window.UnityMessageHandler("navigate_back");
